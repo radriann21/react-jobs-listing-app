@@ -17,9 +17,13 @@ export default {
           'very-dark-grayish-cyan': 'hsl(180, 14%, 20%)',
         }
       },
+      backgroundImage: {
+        'desktop-pattern': "url('./bg-header-desktop.svg')",
+        'mobile-pattern': "url('./bg-header-mobile.svg')"
+      },
       fontFamily: {
         regular: ['Regular'],
-        bold: ['Bold']
+        custom: ['Bold']
       }
     },
   },
