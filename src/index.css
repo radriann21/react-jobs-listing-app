@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Regular';
+  src: local('League Spartan'), url('./assets/fonts/LeagueSpartan-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Bold';
+  src: local('League Spartan'), url('./assets/fonts/LeagueSpartan-Bold.ttf') format('truetype');
+}
