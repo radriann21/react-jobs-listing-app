@@ -3,7 +3,8 @@ import { JobsContext } from "../context/JobsContext";
 import { JobCard } from "./JobCard";
 
 export const ListOfJobs = () => {
-  const { jobList } = useContext(JobsContext);
+  const { filterJobs } = useContext(JobsContext);
+  const jobs = filterJobs();
 
-  return jobList.map((job) => <JobCard key={job.id} job={job} />);
+  return jobs.map((job) => <JobCard key={job.id} job={job} />);
 };

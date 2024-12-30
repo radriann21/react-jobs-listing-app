@@ -1,6 +1,10 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { JobsContext } from "../context/JobsContext";
 
 export const JobCard = ({ job }) => {
+  const { handleRequirements } = useContext(JobsContext);
+
   const { languages, tools } = job;
   const requirements = [...languages, ...tools];
 
@@ -8,7 +12,7 @@ export const JobCard = ({ job }) => {
     <article className="relative w-full p-4 md:p-8 space-y-4 md:space-y-0 flex flex-col md:flex-row sm:items-center justify-between bg-white shadow-md rounded-lg">
       <div className="flex items-center space-x-4">
         <img
-          className="w-[60px] absolute -top-12 sm:relative rounded-full"
+          className="w-[60px] sm:w-[80px] absolute -top-12 sm:relative sm:top-0 rounded-full"
           src={job.logo}
           alt={job.company}
         />
@@ -48,6 +52,7 @@ export const JobCard = ({ job }) => {
       <div className="flex items-center space-x-4">
         {requirements.map((requirement) => (
           <span
+            onClick={handleRequirements}
             key={requirement}
             className="bg-neutral-light-grayish-cyan px-2 py-1 rounded-md font-custom text-sm text-primary-desaturated-dark-cyan cursor-pointer transition-colors duration-300 hover:bg-primary-desaturated-dark-cyan hover:text-white"
           >
