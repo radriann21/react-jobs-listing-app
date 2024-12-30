@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
 import { actions } from "./actions";
 import { JobsReducer } from "./JobsReducer";
 import PropTypes from "prop-types";
@@ -6,6 +6,7 @@ import jobs from "./data.json";
 
 const initialState = {
   jobs,
+  filteredJobs: [],
   requirements: [],
 };
 
@@ -13,6 +14,10 @@ export const JobsContext = createContext(initialState);
 
 export const JobsContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(JobsReducer, initialState);
+
+  useEffect(() => {
+    dispatch({ type: actions.GET_JOBS, payload: jobs });
+  }, []);
 
   const handleRequirements = (evt) => {
     const requirement = evt.currentTarget.textContent;
@@ -31,7 +36,7 @@ export const JobsContextProvider = ({ children }) => {
   return (
     <JobsContext.Provider
       value={{
-        jobs: state.jobs,
+        jobs: state.filteredJobs,
         requirements: state.requirements,
         handleRequirements,
         clearRequirements,
