@@ -18,8 +18,8 @@ export default {
         }
       },
       backgroundImage: {
-        'desktop-pattern': "url('./bg-header-desktop.svg')",
-        'mobile-pattern': "url('./bg-header-mobile.svg')"
+        'desktop-pattern': "url('./assets/bg-header-desktop.svg')",
+        'mobile-pattern': "url('./assets/bg-header-mobile.svg')"
       },
       fontFamily: {
         regular: ['Regular'],
