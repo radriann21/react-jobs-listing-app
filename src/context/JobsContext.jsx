@@ -1,52 +1,39 @@
+import { createContext, useReducer } from "react";
+import { actions } from "./actions";
+import { JobsReducer } from "./JobsReducer";
 import PropTypes from "prop-types";
-import { createContext, useState } from "react";
 import jobs from "./data.json";
 
-export const JobsContext = createContext();
+const initialState = {
+  jobs,
+  requirements: [],
+};
+
+export const JobsContext = createContext(initialState);
 
 export const JobsContextProvider = ({ children }) => {
-  const [jobList, setJobList] = useState(jobs);
-  const [requirements, setRequirements] = useState([]);
+  const [state, dispatch] = useReducer(JobsReducer, initialState);
 
   const handleRequirements = (evt) => {
     const requirement = evt.currentTarget.textContent;
-    setRequirements((prevRequirements) => {
-      if (prevRequirements.includes(requirement)) {
-        return prevRequirements.filter((req) => req !== requirement);
-      } else {
-        return [...prevRequirements, requirement];
-      }
-    });
+    dispatch({ type: actions.ADD_REQUIREMENT, payload: requirement });
   };
 
   const removeRequirement = (evt) => {
     const requirement = evt.currentTarget.previousSibling.textContent;
-    setRequirements((prevRequirements) => {
-      return prevRequirements.filter((req) => req !== requirement);
-    });
+    dispatch({ type: actions.REMOVE_REQUIREMENT, payload: requirement });
   };
 
   const clearRequirements = () => {
-    setRequirements([]);
-  };
-
-  const filterJobs = () => {
-    if (requirements.length === 0) {
-      return jobList;
-    }
-
-    return jobList.filter((job) => {
-      const jobsRequirements = [...job.languages, ...job.tools];
-      return requirements.every((req) => jobsRequirements.includes(req));
-    });
+    dispatch({ type: actions.CLEAR_REQUIREMENTS });
   };
 
   return (
     <JobsContext.Provider
       value={{
-        filterJobs,
+        jobs: state.jobs,
+        requirements: state.requirements,
         handleRequirements,
-        requirements,
         clearRequirements,
         removeRequirement,
       }}
